@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,71 +30,108 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 20px;
+            padding: 20px;
             box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
             position: relative;
         }
-        /* الشريط العُلوي للإعدادات والصوت */
+        /* Top Bar */
         .top-bar {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 5;
         }
-        .icon-btn {
+        .top-left, .top-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .icon-btn, .lang-select {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid #8a2be2;
             color: #fff;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            height: 40px;
+            border-radius: 20px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
             transition: 0.3s;
         }
-        .icon-btn:hover {
+        .icon-btn {
+            width: 40px;
+            font-size: 16px;
+        }
+        .icon-btn:hover, .lang-select:hover {
             background: #8a2be2;
             transform: scale(1.05);
         }
-        /* الشعار والأيقونة */
-        .logo-area {
+        .lang-select {
+            padding: 0 10px;
+            font-size: 13px;
+            font-weight: bold;
+            outline: none;
+        }
+        .lang-select option {
+            background-color: #18122b;
+            color: #ffffff;
+        }
+        /* Banner Placeholder Area */
+        .header-area {
+            width: 100%;
             text-align: center;
-            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .app-logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 25px;
-            border: 3px solid #00ffcc;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-            object-fit: cover;
+        
+        /* مكان البانر الذي طلبته - يمكنك تعديله أو وضع الـ HTML الخاص بكِ فيه لاحقاً */
+        .banner-placeholder {
+            width: 100%;
+            height: 150px;
+            background: rgba(138, 43, 226, 0.15);
+            border: 2px dashed #00ffcc;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 15px;
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2);
         }
+        .banner-text {
+            color: #00ffcc;
+            font-size: 15px;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+        }
+
         h1 {
             font-size: 24px;
             color: #00ffcc;
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
             letter-spacing: 1px;
         }
-        /* أزرار القائمة الرئيسية */
+        .subtitle {
+            color: #b19cd9;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+        /* Main Menu Buttons */
         .menu-buttons {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            padding: 0 20px;
-            margin-bottom: 20px;
+            gap: 12px;
+            padding: 0 10px;
         }
         .btn {
             width: 100%;
-            padding: 15px;
-            font-size: 18px;
+            padding: 13px;
+            font-size: 16px;
             font-weight: bold;
             border: none;
-            border-radius: 30px;
+            border-radius: 25px;
             cursor: pointer;
             transition: 0.3s;
             text-align: center;
@@ -118,62 +155,166 @@
         }
         .bottom-actions {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             width: 100%;
-            padding: 0 20px;
+            padding: 0 10px;
+        }
+
+        /* Settings Modal Style */
+        .modal {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 9, 26, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .modal-content {
+            background: #18122b;
+            border: 2px solid #8a2be2;
+            padding: 25px;
+            border-radius: 20px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+        }
+        .modal-content h3 {
+            color: #00ffcc;
+            margin-bottom: 15px;
+        }
+        .close-modal {
+            margin-top: 20px;
+            background: #8a2be2;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 15px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div class="game-container">
-        <!-- أزرار الصوت والإعدادات -->
+        <!-- Top Bar -->
         <div class="top-bar">
-            <button class="icon-btn" id="soundToggle" title="الصوت والموسيقى">🔊</button>
-            <button class="icon-btn" id="settingsBtn" title="الإعدادات">⚙️</button>
+            <div class="top-left">
+                <button class="icon-btn" id="soundToggle" title="Sound">🔊</button>
+                <button class="icon-btn" id="settingsBtn" title="Settings">⚙️</button>
+            </div>
+            <div class="top-right">
+                <select class="lang-select" id="langSelect">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
         </div>
 
-        <!-- الأيقونة والعنوان باستخدام اسم ملف الأيقونة الخاص بك -->
-        <div class="logo-area">
-            <img src="images/icon.png" alt="Potion Master Logo" class="app-logo">
-            <h1>Potion Master</h1>
-            <p style="color: #b19cd9; font-size: 14px; margin-top: 5px;">Ghost Puzzle</p>
+        <!-- Header Area with Banner Placeholder -->
+        <div class="header-area">
+            <!-- مكان البانر جاهز لتكتبيه أو تضعي فيه كود الصورة لاحقاً -->
+            <div class="banner-placeholder">
+                <span class="banner-text" id="bannerPlaceholderText">[ Your Banner Here ]</span>
+            </div>
+            <h1 id="gameTitle">Potion Master</h1>
+            <p class="subtitle" id="gameSub">Ghost Puzzle</p>
         </div>
 
-        <!-- الأزرار الرئيسية -->
+        <!-- Menu Buttons -->
         <div class="menu-buttons">
-            <button class="btn btn-play" id="playBtn">ابدأ اللعبة (Play)</button>
-            <button class="btn btn-secondary" id="leaderboardBtn">🏆 لوحة المتصدرين</button>
+            <button class="btn btn-play" id="playBtn">Play Game</button>
+            <button class="btn btn-secondary" id="leaderboardBtn">🏆 Leaderboard</button>
         </div>
 
-        <!-- أزرار التقييم والمشاركة -->
+        <!-- Bottom Actions -->
         <div class="bottom-actions">
-            <button class="btn btn-secondary" id="rateBtn" style="font-size: 15px; padding: 12px;">⭐ تقييم اللعبة</button>
-            <button class="btn btn-secondary" id="shareBtn" style="font-size: 15px; padding: 12px;">🔗 مشاركة</button>
+            <button class="btn btn-secondary" id="rateBtn" style="font-size: 14px; padding: 11px;">⭐ Rate Us</button>
+            <button class="btn btn-secondary" id="shareBtn" style="font-size: 14px; padding: 11px;">🔗 Share</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3 id="settingsTitle">Game Settings</h3>
+            <p id="settingsDesc" style="color: #b19cd9; font-size: 14px; margin-bottom: 15px;">Manage your game preferences here.</p>
+            <button class="close-modal" id="closeModal">Close</button>
         </div>
     </div>
 
     <script>
-        // تفاعلات الأزرار الأولية
+        const translations = {
+            en: { play: "Play Game", leaderboard: "🏆 Leaderboard", rate: "⭐ Rate Us", share: "🔗 Share", sub: "Ghost Puzzle", settings: "Game Settings", desc: "Manage your game preferences here.", close: "Close", bannerText: "[ Your Banner Here ]", dir: "ltr" },
+            ar: { play: "ابدأ اللعبة", leaderboard: "🏆 لوحة المتصدرين", rate: "⭐ تقييم اللعبة", share: "🔗 مشاركة", sub: "لغز الأشباح", settings: "إعدادات اللعبة", desc: "قم بتعديل تفضيلات اللعبة من هنا.", close: "إغلاق", bannerText: "[ ضع البانر هنا ]", dir: "rtl" },
+            fr: { play: "Jouer", leaderboard: "🏆 Classement", rate: "⭐ Noter", share: "🔗 Partager", sub: "Puzzle Fantôme", settings: "Paramètres", desc: "Gérez vos préférences de jeu ici.", close: "Fermer", bannerText: "[ Votre Bannière Ici ]", dir: "ltr" }
+        };
+
+        const langSelect = document.getElementById('langSelect');
+        const htmlRoot = document.getElementById('htmlRoot');
+        const playBtn = document.getElementById('playBtn');
+        const leaderboardBtn = document.getElementById('leaderboardBtn');
+        const rateBtn = document.getElementById('rateBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const gameSub = document.getElementById('gameSub');
+        const settingsTitle = document.getElementById('settingsTitle');
+        const settingsDesc = document.getElementById('settingsDesc');
+        const closeModalBtn = document.getElementById('closeModal');
+        const bannerPlaceholderText = document.getElementById('bannerPlaceholderText');
+
+        langSelect.addEventListener('change', (e) => {
+            const lang = e.target.value;
+            const t = translations[lang];
+            htmlRoot.setAttribute('lang', lang);
+            htmlRoot.setAttribute('dir', t.dir);
+            playBtn.innerText = t.play;
+            leaderboardBtn.innerText = t.leaderboard;
+            rateBtn.innerText = t.rate;
+            shareBtn.innerText = t.share;
+            gameSub.innerText = t.sub;
+            settingsTitle.innerText = t.settings;
+            settingsDesc.innerText = t.desc;
+            closeModalBtn.innerText = t.close;
+            bannerPlaceholderText.innerText = t.bannerText;
+        });
+
+        // Sound Toggle
+        let soundOn = true;
         document.getElementById('soundToggle').addEventListener('click', () => {
-            alert('تم تبديل وضع الصوت والموسيقى!');
+            soundOn = !soundOn;
+            document.getElementById('soundToggle').innerText = soundOn ? '🔊' : '🔇';
         });
+
+        // Settings Modal Controls
+        const settingsModal = document.getElementById('settingsModal');
         document.getElementById('settingsBtn').addEventListener('click', () => {
-            alert('فتح نافذة الإعدادات...');
+            settingsModal.style.display = 'flex';
         });
-        document.getElementById('playBtn').addEventListener('click', () => {
-            alert('جارٍ تحضير المستويات وعوالم اللعبة...');
+        closeModalBtn.addEventListener('click', () => {
+            settingsModal.style.display = 'none';
         });
-        document.getElementById('leaderboardBtn').addEventListener('click', () => {
-            alert('فتح لوحة المتصدرين (الذهبي، الفضي، البرونزي)...');
+
+        // Functional Buttons
+        playBtn.addEventListener('click', () => {
+            alert('Starting Potion Master levels...');
         });
-        document.getElementById('rateBtn').addEventListener('click', () => {
-            alert('شكراً لدعمك اللعبة!');
+
+        leaderboardBtn.addEventListener('click', () => {
+            alert('Opening Leaderboards (Gold, Silver, Bronze)...');
         });
-        document.getElementById('shareBtn').addEventListener('click', () => {
-            alert('تم نسخ رابط اللعبة!');
+
+        rateBtn.addEventListener('click', () => {
+            alert('Thank you for rating Potion Master!');
+        });
+
+        shareBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Game link copied to clipboard successfully!');
         });
     </script>
 </body>
 </html>
-
